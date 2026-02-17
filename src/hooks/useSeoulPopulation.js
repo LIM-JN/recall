@@ -21,7 +21,7 @@ export const useSeoulPopulation = ({ date, hour, page, pageSize }) => {
         const end = page * pageSize;
 
         const parts = [
-          "http://openapi.seoul.go.kr:8088",
+          "https://openapi.seoul.go.kr:8088",
           KEY,
           "json",
           "SPOP_LOCAL_RESD_JACHI",

@@ -5,7 +5,7 @@ import { CookiesProvider } from 'react-cookie'
 import { BrowserRouter } from "react-router-dom";
 
 createRoot(document.getElementById('root')).render(
-    <BrowserRouter>
+    <BrowserRouter basename="/recall">
         <CookiesProvider>
             <App/>
         </CookiesProvider>
