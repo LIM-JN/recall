@@ -42,8 +42,9 @@ h1 {
 header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   max-width: 1400px;
+  gap: 20px;
 }
 
 header img {
@@ -160,4 +161,8 @@ footer p {
   margin: auto;
   gap: 10px;
   align-items: center;
+}
+
+select {
+  min-width: 80px;
 }
