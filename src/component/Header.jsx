@@ -8,7 +8,7 @@ const Header = () => {
             <a href=""></a>
             <Link to='/'>로그인</Link>
             <Link to='/Population'>유동인구 조회</Link>
-            <div>Data Source 관리</div>
+            <Link to='BarChart'>막대그래프</Link>
             <div>Sub code 관리</div>
         </header>
     );
