@@ -1,0 +1,163 @@
+#root {
+  margin: 0 auto;
+  text-align: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+h1 {
+  font-family: 'pretendard';
+}
+
+#root {
+  width: 100%;
+}
+
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+}
+
+header img {
+  width: 240px;
+}
+
+footer p {
+  font-size: 11px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin:120px auto;
+}
+
+.main form {
+  width: 240px;
+}
+
+.main .user {
+  width: 30px;
+  margin-top: 6px;
+}
+
+.main label img {
+  width: 16px;
+}
+
+.main input {
+  height: 30px;
+  width: 100%;
+}
+
+.main .row {
+  margin-bottom: 10px;
+}
+
+.main input::placeholder {
+  color:#ccc;
+}
+
+.main label {
+  height: 30px;
+  width: 30px;
+  border: 1px solid #3b3b3b;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main form h6 {
+  margin: 6px 0;
+}
+
+
+/* 표 전체 */
+.tlist {
+  margin:auto;
+  width: 80%;
+  max-width: 900px;         /* 너무 넓어지면 보기 불편해서 제한 */
+  margin: 16px auto;        /* 가운데 정렬 */
+  border-collapse: collapse; /* 경계선 한 줄로 합치기 */
+  table-layout: fixed;       /* 각 칸 너비 균일하게 */
+  font-size: 14px;
+  background: #fff;
+}
+
+/* 헤더/본문 공통 */
+.tlist th,
+.tlist td {
+  border: 1px solid #d9d9d9; /* 경계선 */
+  padding: 10px 12px;
+  text-align: center;
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 헤더 */
+.tlist th {
+  background: #f5f7fa;
+  font-weight: 700;
+}
+
+/* 줄무늬(가독성) */
+.tlist tr:nth-child(even) td {
+  background: #fafafa;
+}
+
+/* 마우스 올렸을 때 강조 */
+.tlist tbody tr:hover td {
+  background: #eef6ff;
+}
+
+/* 숫자 컬럼만 조금 더 정렬감 주고 싶으면(선택) */
+.tlist td:last-child {
+  font-variant-numeric: tabular-nums; /* 숫자 폭 균일 */
+}
+
+.dateForm {
+  display: flex;
+  width: 80%;
+  justify-content: flex-end;
+  max-width: 900px;
+  margin: auto;
+  gap: 10px;
+  align-items: center;
+}
