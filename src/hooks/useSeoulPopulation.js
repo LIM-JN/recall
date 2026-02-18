@@ -14,14 +14,14 @@ export const useSeoulPopulation = ({ date, hour, page, pageSize }) => {
       setError("");
 
       try {
-        const KEY = "7866784663616977353052717a6a76"; // 
+        const KEY = "7866784663616977353052717a6a76";
         const yyyymmdd = toYYYYMMDD(date);
 
         const start = (page - 1) * pageSize + 1;
         const end = page * pageSize;
 
-        const parts = [
-          "http://openapi.seoul.go.kr:8088",
+        // ✅ 1) 서울 API로 보낼 path를 만든다 (http://openapi.seoul.go.kr:8088/ 뒤에 붙을 부분)
+        const pathParts = [
           KEY,
           "json",
           "SPOP_LOCAL_RESD_JACHI",
@@ -29,10 +29,13 @@ export const useSeoulPopulation = ({ date, hour, page, pageSize }) => {
           end,
           yyyymmdd,
         ];
+        if (hour !== "ALL") pathParts.push(hour);
 
-        if (hour !== "ALL") parts.push(hour);
+        const path = pathParts.join("/") + "/";
 
-        const url = parts.join("/") + "/";
+        // ✅ 2) Vercel 프록시 주소로 요청한다
+        const PROXY_BASE = "https://recall-one-zeta.vercel.app/api/seoul";
+        const url = `${PROXY_BASE}?path=${encodeURIComponent(path)}`;
 
         const res = await fetch(url);
         const data = await res.json();
