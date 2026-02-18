@@ -14,14 +14,14 @@ export const useSeoulPopulation = ({ date, hour, page, pageSize }) => {
       setError("");
 
       try {
-        const KEY = "7866784663616977353052717a6a76"; // ✅ 너 키로 바꿔
+        const KEY = "7866784663616977353052717a6a76"; // 
         const yyyymmdd = toYYYYMMDD(date);
 
         const start = (page - 1) * pageSize + 1;
         const end = page * pageSize;
 
         const parts = [
-          "https://openapi.seoul.go.kr:8088",
+          "http://openapi.seoul.go.kr:8088",
           KEY,
           "json",
           "SPOP_LOCAL_RESD_JACHI",
