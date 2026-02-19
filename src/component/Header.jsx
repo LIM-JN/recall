@@ -7,9 +7,9 @@ const Header = () => {
             <img src={logo} alt="logo" className="logo"/>
             <a href=""></a>
             <Link to='/'>로그인</Link>
-            <Link to='/Population'>유동인구 조회</Link>
-            <Link to='BarChart'>막대그래프</Link>
-            <div>Sub code 관리</div>
+            <Link to='/Population'>생활인구 조회</Link>
+            <Link to='/BarChart'>막대그래프</Link>
+            <Link to='/LineChart'>라인그래프</Link>
         </header>
     );
 };

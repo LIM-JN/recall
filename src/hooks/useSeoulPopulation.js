@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const toYYYYMMDD = (v) => v.replaceAll("-", "");
 
-export const useSeoulPopulation = ({ date, hour, page, pageSize }) => {
+export const useSeoulPopulation = ({ date, hour, page, pageSize, guCode }) => {
   const [rows, setRows] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -28,8 +28,9 @@ export const useSeoulPopulation = ({ date, hour, page, pageSize }) => {
           start,
           end,
           yyyymmdd,
+          hour,
+          guCode
         ];
-        if (hour !== "ALL") pathParts.push(hour);
 
         const path = pathParts.join("/") + "/";
 
@@ -52,7 +53,7 @@ export const useSeoulPopulation = ({ date, hour, page, pageSize }) => {
     };
 
     fetchPop();
-  }, [date, hour, page, pageSize]);
+  }, [date, hour, page, pageSize, guCode]);
 
   return { rows, totalCount, loading, error };
 };
