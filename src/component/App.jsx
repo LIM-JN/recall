@@ -16,8 +16,7 @@ function App() {
       <div className='App'>
         <Header/>
         <Routes>
-          <Route path="/" element={<LoginForm/>}/>
-          <Route path='/population' element={<Population/>}/>
+          <Route path="/" element={<Population/>}/>
           <Route path='/barchart' element={<BarChart/>}/>
           <Route path='/linechart' element={<LineChart/>}/>
         </Routes>
