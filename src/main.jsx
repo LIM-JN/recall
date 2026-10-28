@@ -1,5 +1,7 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
+import './reset.css'
+import './font.css'
 import App from './component/App.jsx'
 import { CookiesProvider } from 'react-cookie'
 import { BrowserRouter } from "react-router-dom";

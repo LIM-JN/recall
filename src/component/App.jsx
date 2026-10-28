@@ -1,7 +1,5 @@
-import '../App.css'
-import { Routes, Route } from "react-router-dom";
 
-import LoginForm from './LoginForm';
+import { Routes, Route } from "react-router-dom";
 import Population from './Population';
 import BarChart from './BarChart';
 import LineChart from './LineChart';
