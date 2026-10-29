@@ -12,6 +12,9 @@ import {
   CartesianGrid,
 } from "recharts";
 
+import { DayPicker } from "@daypicker/react";
+import "@daypicker/react/style.css";
+
 const guMap = {
   "11110": "종로구",
   "11140": "중구",
@@ -44,6 +47,8 @@ const PopulationChart = () => {
   const [date, setDate] = useState("2018-08-23");
   const [hour, setHour] = useState("00");
 
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+
   // ✅ 구별 비교용: 한 번에 25개 정도 받기
   const { rows, loading, error } = useSeoulPopulation({
     date,
@@ -68,10 +73,54 @@ const PopulationChart = () => {
       <div style={{ width: "80%", display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap", margin:'auto', justifyContent:"flex-end" }}>
         {loading && <span>로딩중...</span>}
         {error && <span style={{ color: "crimson" }}>{error}</span>}
-        <label>
-          날짜&nbsp;
-          <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-        </label>
+        <div className="date-filter">
+          <label>날짜</label>
+
+          <button
+            type="button"
+            className="date-trigger"
+            onClick={() => setIsCalendarOpen((prev) => !prev)}
+          >
+            {date || "날짜 선택"}
+            <span>▾</span>
+          </button>
+
+          {isCalendarOpen && (
+            <>
+              <div
+                className="calendar-backdrop"
+                onClick={() => setIsCalendarOpen(false)}
+              />
+
+              <div className="calendar-popup">
+                <DayPicker
+                  mode="single"
+                  defaultMonth={
+                    date
+                      ? new Date(`${date}T12:00:00`)
+                      : new Date(
+                          new Date().getFullYear() - 1,
+                          new Date().getMonth(),
+                          1
+                        )
+                  }
+                  selected={date ? new Date(`${date}T12:00:00`) : undefined}
+                  onSelect={(selectedDate) => {
+                    if (!selectedDate) return;
+
+                    const year = selectedDate.getFullYear();
+                    const month = String(selectedDate.getMonth() + 1).padStart(2, "0");
+                    const day = String(selectedDate.getDate()).padStart(2, "0");
+
+                    setDate(`${year}-${month}-${day}`);
+                    setPage(1);
+                    setIsCalendarOpen(false);
+                  }}
+                />
+              </div>
+            </>
+          )}
+        </div>
 
         <label>
           시간&nbsp;

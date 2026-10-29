@@ -10,6 +10,9 @@ import {
 } from "recharts";
 import { useSeoulPopulation } from "../hooks/useSeoulPopulation";
 
+import { DayPicker } from "@daypicker/react";
+import "@daypicker/react/style.css";
+
 const guMap = {
   "11110": "종로구",
   "11140": "중구",
@@ -43,6 +46,8 @@ const hourList = Array.from({ length: 24 }, (_, i) => String(i).padStart(2, "0")
 const LineChart = () => {
   const [date, setDate] = useState("2018-08-23");
   const [guCode, setGuCode] = useState("11545"); // 기본값: 금천구 (원하는 구로 바꿔도 됨)
+
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
   // ✅ 라인차트는 "한 구"의 "24시간"이 핵심이니까
   // 시간은 전체(" ")로 고정, 1~24개 한 번에 받기
@@ -88,14 +93,53 @@ const LineChart = () => {
         {loading && <span>로딩중...</span>}
         {error && <span style={{ color: "crimson" }}>{error}</span>}
 
-        <label>
-          날짜&nbsp;
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-        </label>
+        <div className="date-filter">
+          <label>날짜</label>
+
+          <button
+            type="button"
+            className="date-trigger"
+            onClick={() => setIsCalendarOpen((prev) => !prev)}
+          >
+            {date || "날짜 선택"}
+            <span>▾</span>
+          </button>
+
+          {isCalendarOpen && (
+            <>
+              <div
+                className="calendar-backdrop"
+                onClick={() => setIsCalendarOpen(false)}
+              />
+
+              <div className="calendar-popup">
+                <DayPicker
+                  mode="single"
+                  defaultMonth={
+                    date
+                      ? new Date(`${date}T12:00:00`)
+                      : new Date(
+                          new Date().getFullYear() - 1,
+                          new Date().getMonth(),
+                          1
+                        )
+                  }
+                  selected={date ? new Date(`${date}T12:00:00`) : undefined}
+                  onSelect={(selectedDate) => {
+                    if (!selectedDate) return;
+
+                    const year = selectedDate.getFullYear();
+                    const month = String(selectedDate.getMonth() + 1).padStart(2, "0");
+                    const day = String(selectedDate.getDate()).padStart(2, "0");
+
+                    setDate(`${year}-${month}-${day}`);
+                    setIsCalendarOpen(false);
+                  }}
+                />
+              </div>
+            </>
+          )}
+        </div>
 
         <label>
           자치구&nbsp;

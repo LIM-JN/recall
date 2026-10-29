@@ -1,6 +1,9 @@
 import { useMemo, useState } from "react";
 import { useSeoulPopulation } from "../hooks/useSeoulPopulation";
 
+import { DayPicker } from "@daypicker/react";
+import "@daypicker/react/style.css";
+
 const guMap = {
   "11110": "종로구",
   "11140": "중구",
@@ -34,6 +37,7 @@ const PopulationTable = () => {
   const [hour, setHour] = useState(" ");
   const [guCode, setGuCode] = useState('');
   const [page, setPage] = useState(1);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const pageSize = 10;
 
   const { rows, totalCount, loading, error } = useSeoulPopulation({
@@ -51,22 +55,59 @@ const PopulationTable = () => {
 
   return (
     <>
-      <h3>서울 생활인구 데이터 (테이블)</h3>
+      <h3>서울 생활인구 데이터</h3>
 
       <div className="dateForm">
         {loading && <span>로딩중...</span>}
         {error && <span style={{ color: "crimson" }}>{error}</span>}
-        <label>
-          날짜&nbsp;
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => {
-              setDate(e.target.value);
-              setPage(1);
-            }}
-          />
-        </label>
+        <div className="date-filter">
+          <label>날짜</label>
+
+          <button
+            type="button"
+            className="date-trigger"
+            onClick={() => setIsCalendarOpen((prev) => !prev)}
+          >
+            {date || "날짜 선택"}
+            <span>▾</span>
+          </button>
+
+          {isCalendarOpen && (
+            <>
+              <div
+                className="calendar-backdrop"
+                onClick={() => setIsCalendarOpen(false)}
+              />
+
+              <div className="calendar-popup">
+                <DayPicker
+                  mode="single"
+                  defaultMonth={
+                    date
+                      ? new Date(`${date}T12:00:00`)
+                      : new Date(
+                          new Date().getFullYear() - 1,
+                          new Date().getMonth(),
+                          1
+                        )
+                  }
+                  selected={date ? new Date(`${date}T12:00:00`) : undefined}
+                  onSelect={(selectedDate) => {
+                    if (!selectedDate) return;
+
+                    const year = selectedDate.getFullYear();
+                    const month = String(selectedDate.getMonth() + 1).padStart(2, "0");
+                    const day = String(selectedDate.getDate()).padStart(2, "0");
+
+                    setDate(`${year}-${month}-${day}`);
+                    setPage(1);
+                    setIsCalendarOpen(false);
+                  }}
+                />
+              </div>
+            </>
+          )}
+        </div>
 
         <label>
           시간&nbsp;
