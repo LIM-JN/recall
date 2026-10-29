@@ -113,7 +113,6 @@ const PopulationChart = () => {
                     const day = String(selectedDate.getDate()).padStart(2, "0");
 
                     setDate(`${year}-${month}-${day}`);
-                    setPage(1);
                     setIsCalendarOpen(false);
                   }}
                 />
